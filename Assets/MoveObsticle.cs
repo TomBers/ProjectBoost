@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MoveObsticle : MonoBehaviour {
 
-	Transform transform;
 	Rigidbody rigidBody;
 	[SerializeField] bool rising = true;
 	
@@ -12,14 +11,13 @@ public class MoveObsticle : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rigidBody = GetComponent<Rigidbody>();
-		transform = GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.position.y > 15f) {
+		if (rigidBody.position.y > 15f) {
 			rising = false;
-		} else if (transform.position.y < 2f) {
+		} else if (rigidBody.position.y < 2f) {
 			rising = true;
 		}
 	
