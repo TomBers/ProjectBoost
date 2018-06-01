@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23526930128196284}
   m_Layer: 0
   m_Name: GoalPad
-  m_TagString: Fuel
+  m_TagString: GOAL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1015688756811092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.18, y: 1.94, z: 0}
+  m_LocalPosition: {x: 39.73, y: 0.36, z: 0}
   m_LocalScale: {x: 5.5537877, y: 1, z: 5.9952693}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: e12e0826fd8354bd18f571e686d41eaa, type: 2}
+  - {fileID: 2100000, guid: da2a52d76bef0496f849b6b9b98be6e3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
