@@ -13,21 +13,26 @@ public class Rocket : MonoBehaviour {
 	
 	[SerializeField] float rcsThrust = 100f;
 	[SerializeField] float mainThrust = 3000f;
+	[SerializeField] AudioClip mainEngine;
+	[SerializeField] AudioClip levelLoad;
+	[SerializeField] AudioClip deathRattle;
+
 	// Use this for initialization
 	void Start () {
 		rigidBody = GetComponent<Rigidbody>();
 		audioSource = GetComponent<AudioSource>();
+
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (state == State.Alive) {
-			Thrust();
-			Rotate();
+			RespondToThrustInput();
+			RespondToRotateInput();
 		}
 	}
 
-	private void Rotate() {
+	private void RespondToRotateInput() {
 		float rotationThisFrame = rcsThrust * Time.deltaTime;
 
 		rigidBody.freezeRotation = true; // Take manual control
@@ -39,18 +44,23 @@ public class Rocket : MonoBehaviour {
 		rigidBody.freezeRotation = false;
 	}
 
-	private void Thrust() {
-		float thrustThisFrame = mainThrust * Time.deltaTime;
+	private void RespondToThrustInput() {
 		if (Input.GetKey(KeyCode.Space)) {
-			rigidBody.AddRelativeForce(new Vector3(0f, thrustThisFrame, 0f));
-			if (!audioSource.isPlaying) {
-				//audioSource.Play();
-			}
+			ApplyThrust();
 		} else {
 			audioSource.Stop();
 		}
 	}
-	
+
+	private void ApplyThrust() {
+		float thrustThisFrame = mainThrust * Time.deltaTime;
+		rigidBody.AddRelativeForce(new Vector3(0f, thrustThisFrame, 0f));
+
+		if (!audioSource.isPlaying) {
+			audioSource.PlayOneShot(mainEngine);
+		}
+	}
+
 	void OnCollisionEnter(Collision collision) {
 		if (state != State.Alive) return;
 
@@ -58,21 +68,33 @@ public class Rocket : MonoBehaviour {
 			case "Friendly":
 				break;
 			case "GOAL":
-				state = State.Transcending;
-				Invoke("LoadNextScene", 1f);
+				StartSuccessSequence();
 				break;
 			case "Fuel":
 				print("Fuel");
 				break;
 			case "Obsticle":
-				state = State.Dying;
-				Invoke("LoadFirstLevel", 1f);
+				Death();
 				break;
 			default:
 				print("Dead");
 				break;
 		}        
     }
+
+	private void StartSuccessSequence() {
+		state = State.Transcending;
+		audioSource.Stop();
+		audioSource.PlayOneShot(levelLoad);
+		Invoke("LoadNextScene", 2f);
+	}
+
+	private void Death() {
+		state = State.Dying;
+		audioSource.Stop();
+		audioSource.PlayOneShot(deathRattle);
+		Invoke("LoadFirstLevel", 1f);
+	}
 
 	private void LoadFirstLevel() {
 		SceneManager.LoadScene(0);

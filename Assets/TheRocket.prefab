@@ -478,6 +478,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rcsThrust: 100
   mainThrust: 3000
+  mainEngine: {fileID: 8300000, guid: 2065a7bf4938c432f9302cb481b402f7, type: 3}
+  levelLoad: {fileID: 8300000, guid: 1b8a8d38e16de4547ab267a4c3dd106e, type: 3}
+  deathRattle: {fileID: 8300000, guid: af28f88137db74a6fb0ade804583ee64, type: 3}
 --- !u!136 &136555090665502106
 CapsuleCollider:
   m_ObjectHideFlags: 1
